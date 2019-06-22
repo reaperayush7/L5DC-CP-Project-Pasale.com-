@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use App\Category;
 use Illuminate\Http\Request;
 
-class ShopController extends Controller
+class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,24 +13,9 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $orders = auth()->user()->orders()->with('products')->get();
 
-        if (request()->category) {
-            $products = Product::with('categories')->whereHas('categories', function ($query) {
-                $query->where('slug', request()->category);
-            })->get();
-
-            $categoryName = optional($categories->where('slug', request()->category)->first())->name;
-        } else {
-            $products = Product::where('featured', true)->get();
-            $categoryName = 'Featured';
-        }
-
-        return view('shop')->with([
-            'products' => $products,
-            'categories' => $categories,
-            'categoryName' => $categoryName,
-        ]);
+        return view('myorders')->with('orders', $orders);
     }
 
     /**
@@ -59,19 +42,12 @@ class ShopController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string  $slug
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        
-        $product = Product::where('slug', $slug)->firstOrFail();
-        $mightAlsoLike = Product::where('slug', '!=', $slug)->mightAlsoLike()->get();
-
-        return view('product')->with([
-            'product' => $product,
-            'mightAlsoLike' => $mightAlsoLike,
-        ]);
+        //
     }
 
     /**
@@ -106,10 +82,5 @@ class ShopController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function search(Request $request)
-    {
-
     }
 }

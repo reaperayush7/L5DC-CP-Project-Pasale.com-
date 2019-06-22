@@ -14,6 +14,9 @@
 
 					<li><a href="{{ route('landing-page')}}">Home</a></li>
 					<li><a href="{{ route('shop.index')}}">Shop</a></li>
+					<li><a href="{{ route('offers.index')}}">Offers</a></li>
+
+
 
 					</ul>
 				</div>

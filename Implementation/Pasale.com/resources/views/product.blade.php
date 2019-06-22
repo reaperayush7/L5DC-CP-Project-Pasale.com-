@@ -2,6 +2,7 @@
 
 @section('title', $product->name)
 
+
 @section('content')
 
 	<!-- BREADCRUMB -->
@@ -50,7 +51,6 @@
 								<input type="hidden" name="name" value="{{ $product->name }}">
 								<input type="hidden" name="price" value="{{ $product->price }}">
 								<button type="submit" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 								</form>
 							</div>
 						</div>
@@ -65,4 +65,7 @@
     <!-- /section -->
 
 	@include('partials.might-like')
+
+
+
 @endsection

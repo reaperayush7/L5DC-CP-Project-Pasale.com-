@@ -1241,6 +1241,7 @@ body {
     opacity: 0;
   }
   
+
   #product-main-view:hover .slick-arrow {
     opacity: 1;
   }

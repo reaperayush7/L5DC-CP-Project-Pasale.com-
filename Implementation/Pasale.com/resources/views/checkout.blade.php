@@ -90,8 +90,13 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
+                        @if (auth()->user())
+                        <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" readonly>
+                        @else
                         <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
-                    </div>
+                        @endif
+
+                      </div>
                     <div class="form-group">
                         <label for="address">Address</label>
                         <input type="text" class="form-control" id="address" name="address" value="{{ old('address') }}" required>

@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use App\Category;
 use Illuminate\Http\Request;
 
-class LandingPageController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,27 +13,7 @@ class LandingPageController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-
-        $products = Product::where('featured', true)->take(8)->inRandomOrder()->get();
-
-        if (request()->category) {
-            $products = Product::with('categories')->whereHas('categories', function ($query) {
-                $query->where('slug', request()->category);
-            })->get();
-
-            $categoryName = optional($categories->where('slug', request()->category)->first())->name;
-        } else {
-            $products = Product::where('featured', true)->take(8)->inRandomOrder()->get();
-            $categoryName = 'Featured';
-        }
-
-        return view('landing-page')->with([
-            'products' => $products,
-            'categories' => $categories,
-            'categoryName' => $categoryName,
-        ]);
-
+        //
     }
 
     /**
@@ -76,21 +54,39 @@ class LandingPageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return view('myprofile')->with ('user', auth()->user());
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.auth()->id(),
+            'password' => 'sometimes|nullable|string|min:6|confirmed',
+        ]);  
+        $user = auth()->user();
+        $input = $request->except('password', 'password_confirmation');
+
+        if (! $request->filled('password')) {
+            $user->fill($input)->save();
+
+            return back()->with('success_message', 'Profile updated successfully!');
+        }
+        
+        $user->password = bcrypt($request->password);
+        $user->fill($input)->save();
+
+        return back()->with('success_message', 'Profile and password updated successfully!');  
+
     }
 
     /**

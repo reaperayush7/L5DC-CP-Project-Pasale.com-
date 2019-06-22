@@ -9,6 +9,7 @@
 		<div class="container">
 			<ul class="breadcrumb">
 				<li><a href="/">Home</a></li>
+                <li><a href="{{ route('shop.index') }}">Shop</a></li>
 				<li class="active">Cart</li>
 			</ul>
 		</div>
@@ -101,7 +102,7 @@
 
 
 							<div class="pull-right">
-								<a href="{{ route('checkout.index') }}""><button class="primary-btn">Place Order</button>
+								<a href="{{ route('checkout.index') }}"><button class="primary-btn">Place Order</button>
 							</div>
 
                     </div>

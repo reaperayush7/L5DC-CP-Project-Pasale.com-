@@ -56,10 +56,7 @@
 						<div class="product-body">
 							<h3 class="product-price">{{ $product->presentPrice() }}</h3>
 							<h2 class="product-name"><a href="{{ route('shop.show', $product->slug) }}">{{ $product->name }}</a></h2>
-							<div class="product-btns">
-								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>								
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-							</div>
+							
 						</div>
                     </div>
                 </div>

@@ -1,43 +1,31 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layout')
+@section('category_nav')
+	<!-- category nav -->
+<div class="category-nav show-on-click">
+	<span class="category-header">Categories <i class="fa fa-list"></i></span>
+		<ul class="category-list">
+			@foreach ($categories as $category)
+				<li><a href="{{ route('shop.index', ['category' => $category->slug]) }}">{{ $category->name }}</a></li>
+			@endforeach
+		</ul>
+</div>
+				<!-- /category nav -->
+				
+@endsection
 
-        <!-- CSRF Token -->
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>Pasale.com | Your own shop anywhere everywhere</title>
-
-        <link href="/img/favicon.ico" rel="SHORTCUT ICON" />
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat%7CRoboto:300,400,700" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    </head>
-
-
-<body>
-    @include('partials.header')
-    @include('partials.search')
-	@include('partials.nav')
+@section('title', 'Home')
 	
-		<!-- BREADCRUMB -->
-		<div id="breadcrumb">
+@section('content')
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
 		<div class="container">
 			<ul class="breadcrumb">
-				<li><a href="/">Home</a></li>
+				<li class="active">Home</li>
 			</ul>
 		</div>
 	</div>
 	<!-- /BREADCRUMB -->
-
     	<!-- section -->
 	<div class="section">
 		<!-- container -->
@@ -63,30 +51,19 @@
 						<div class="product-body">
 							<h3 class="product-price">{{ $product->presentPrice() }}</h3>
 							<h2 class="product-name"><a href="{{ route('shop.show', $product->slug) }}">{{ $product->name }}</a></h2>
-							<div class="product-btns">
-								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>								
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-							</div>
+							
 						</div>
 					</div>
 				</div>
 				@endforeach
                 </div>	
-				<div class="row col-md-4 col-md-offset-5">
-				<a href="{{ route('shop.index')}}"><button class="primary-btn "><i class="fa fa-shopping-cart"></i> View All Products </button></a>
-				</div>
+				<a href="{{ route('shop.index') }}"><button  type="submit" class="primary-btn add-to-cart"><i class="fa fa-store"></i> View All Products</button>
 		</div>
 	</div>
 
 
-    @include('partials.footer')
-
+@endsection
     
-	<!-- jQuery Plugins -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.zoom.min.js"></script>
-	<script src="js/main.js"></script>
 
 
 </body>

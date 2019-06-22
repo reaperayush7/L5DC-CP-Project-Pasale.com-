@@ -6,7 +6,7 @@
 			<div class="pull-left">
 				<!-- Logo -->
 				<div class="header-logo">
-					<a class="logo" href="#">
+					<a class="logo" href="/">
 						<img src="/img/logo.png" alt="hero image">
 					</a>
 				</div>
@@ -26,13 +26,15 @@
 							@else
 						<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
 							
-							
+						<div class="header-btns-icon">
+								<i class="fa fa-user-o"></i>
+							</div>
 						
 							<strong class="text-uppercase"> {{ Auth::user()->name }} <i class="fa fa-caret-down"></i></strong>
 						</div>
 						<ul class="custom-menu">
-							<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-							<li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+							<li><a href="{{ route('users.edit') }}"><i class="fa fa-user-o"></i> My Account</a></li>
+							<li><a href="{{ route('orders.index') }}"><i class="fa fa-heart-o"></i>Order History</a></li>
 							<li>
 							<a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -44,7 +46,8 @@
                                         @csrf
                                     </form>
 
-							</li>						
+							</li>	
+					
 						</ul>   
                         @endguest
 					</li>
@@ -65,16 +68,21 @@
 							
 							<div class="shopping-cart-btns">
 								<a href="{{ route('cart.index') }}"><button class="main-btn">View Cart</button></a>
-								<button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+								<a href="{{ route('checkout.index') }}"><button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button></a>
 							</div>
 						</div>
 					</div>
+
 				</li>
 
 			<!-- Mobile nav toggle-->
 			<li class="nav-toggle">
 				<button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
 			</li>
+			<li>	<a href="{{ route('help.index') }}"> <div class="header-btns-icon">
+							<i class="fa fa-question"></i>
+							</div></a> </li>
+					</div>
 			</ul>
 		</div>
 	</div>
