@@ -185,7 +185,7 @@
 										<td class="thumb"><img src="{{ asset('/img/products/'.$item->model->slug.'.jpg') }}" alt=""></td>
 										<td class="name">{{ $item->model->name }}	</td>
 										<td class="price text-center"><strong>{{ $item->model->details }}</strong></td>
-										<td class="qty text-center"><input class="input" type="number" value="1"></td>
+										<td class="qty text-center"><strong>1</strong></td>
 										<td class="total text-center"><strong class="primary-color">{{ $item->model->presentPrice() }}</strong></td>
                    </tr>
                                 @endforeach
@@ -205,15 +205,18 @@
                       <button type="submit"><i class="fa fa-close"></i> </button>
                     </form>
                     </th>
-										<th colspan="2" class="sub-total">-{{ presentPrice(session()->get('coupon')['discount']) }}</th>
+										<th colspan="2" class="sub-total">{{ presentPrice(session()->get('coupon')['discount']) }}</th>
                     </tr>
-                     <tr>
                     @endif
-
+                     <tr>
 										<th class="empty" colspan="3"></th>
 										<th>TAX</th>
-										<th colspan="2" class="sub-total">{{ presentPrice(Cart::tax()) }}</th>
-                                    </tr>
+										<th colspan="2" class="sub-total">{{config('cart.tax')}}%</th>
+                      </tr>
+                      <tr>
+
+
+
 									<tr>
 										<th class="empty" colspan="3"></th>
 										<th>SHIPING</th>

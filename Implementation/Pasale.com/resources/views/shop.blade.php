@@ -15,6 +15,10 @@
 
 @section('title', 'Shop')
 
+@section('extra-css')
+<link rel="stylesheet" href="{{ asset('css/image.css') }}">
+@endsection
+
 @section('content')
 
 	<!-- BREADCRUMB -->
@@ -46,20 +50,21 @@
 			</div>
 
 				
-				@forelse ($products as $product)
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="product product-single">
-						<div class="product-thumb">
-                        <a href="{{ route('shop.show', $product->slug) }}"> <button class="main-btn quick-view"><i class="fa fa-search-plus"></i>Quick view </a></button>
-							<img src="{{ asset('/img/products/'.$product->slug.'.jpg') }}" alt="">
-						</div>
-						<div class="product-body">
-							<h3 class="product-price">{{ $product->presentPrice() }}</h3>
-							<h2 class="product-name"><a href="{{ route('shop.show', $product->slug) }}">{{ $product->name }}</a></h2>
-							
-						</div>
-                    </div>
-                </div>
+			@forelse($products as $product)
+
+<div class="col-md-3 col-sm-6 col-xs-6">
+<div class="hovereffect">
+<img class="img-responsive" src="{{ asset('/img/products/'.$product->slug.'.jpg') }}" alt="">
+<div class="overlay">
+<a class="info" href="{{ route('shop.show', $product->slug) }}">Quick View</a>
+</div>
+<div class="product-body">
+			<h3 class="product-price">{{ $product->presentPrice() }}</h3>
+			<h4 class="product-name"><a href="{{ route('shop.show', $product->slug) }}">{{ $product->name }}</a></h4>
+			
+		</div>
+</div>
+</div>
 				@empty
 
 				<div class="row">

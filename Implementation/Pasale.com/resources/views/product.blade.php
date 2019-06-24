@@ -2,6 +2,37 @@
 
 @section('title', $product->name)
 
+@section('extra-css')
+
+<style>
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 100%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+}
+.badge-success {
+    color: #fff;
+    background-color: #28a745;
+}
+
+.badge-danger {
+    color: #fff;
+    background-color: #dc3545;
+}
+
+.badge-warning {
+    color: #212529;
+    background-color: #ffc107;
+}
+</style>
+
+@endsection
 
 @section('content')
 
@@ -38,13 +69,15 @@
 						<div class="product-body">
 							<h2 class="product-name">{{ $product->name }}</h2>
 							<h3 class="product-price">{{ $product->presentPrice() }}</h3>
-							<p><strong>Availability:</strong> In Stock</p>
+							<p><strong>Availability:</strong>{!! $stockLevel !!}</p>
 							<strong>Details: {!! $product->details !!}</strong>
 							<p>
 							{!! $product->description !!}
 							</p>
 
 							<div class="product-btns">
+							
+							@if ($product->quantity > 0)
 							<form action="{{ route('cart.store') }}" method="POST">
 								{{ csrf_field() }}
 								<input type="hidden" name="id" value="{{ $product->id }}">
@@ -52,6 +85,7 @@
 								<input type="hidden" name="price" value="{{ $product->price }}">
 								<button type="submit" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
 								</form>
+								@endif
 							</div>
 						</div>
 					</div>

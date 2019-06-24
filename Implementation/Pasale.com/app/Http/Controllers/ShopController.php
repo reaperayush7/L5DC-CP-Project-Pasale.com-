@@ -68,8 +68,17 @@ class ShopController extends Controller
         $product = Product::where('slug', $slug)->firstOrFail();
         $mightAlsoLike = Product::where('slug', '!=', $slug)->mightAlsoLike()->get();
 
+        if($product->quantity > setting('site.stock_threshold')){
+            $stockLevel = '<span class="badge badge-success">In Stock</span>';
+        } elseif($product->quantity <= setting('site.stock_threshold') && $product->quantity > 0) {
+            $stockLevel = '<span class="badge badge-warning">Low Stock</span>';
+        } else {
+            $stockLevel = '<span class="badge badge-danger">Not Available</span>';
+        }
+
         return view('product')->with([
             'product' => $product,
+            'stockLevel' => $stockLevel,
             'mightAlsoLike' => $mightAlsoLike,
         ]);
     }

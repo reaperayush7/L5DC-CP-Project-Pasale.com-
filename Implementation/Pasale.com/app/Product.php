@@ -11,6 +11,8 @@ class Product extends Model
             return $this->belongsToMany('App\Category');
     }
 
+    protected $fillable = ['quantity'];
+
     public function presentPrice()
     {
         return money_format('$%i', $this->price);

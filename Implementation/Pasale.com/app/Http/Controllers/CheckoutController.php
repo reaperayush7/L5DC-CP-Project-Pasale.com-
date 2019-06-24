@@ -43,6 +43,10 @@ class CheckoutController extends Controller
      */
     public function store(CheckoutRequest $request)
     {
+        if ($this->productsNoLongerAvailable()){
+            return back()->withErrors('Sorry! One of the product in your cart is no longer available.'); 
+        }
+
         $contents = Cart::content()->map(function($item){
             return $item->model->slug.', '.$item->qty;
         })->values()->toJson();
@@ -64,10 +68,13 @@ class CheckoutController extends Controller
 
             $this->addToOrdersTable($request, null);
 
+            //decrease quantity of all products
+            $this->decreaseQuantity();
+
             //SUCCESSFUL
             Cart::instance('default')->destroy();
             session()->forget('coupon');
-            //Successfull
+            
             return redirect()->route('confirmation.index')->with('success_message', 'Thank you! Your payment has been successfullt accepted...');
 
         }catch (CardErrorException $e) {
@@ -109,6 +116,27 @@ class CheckoutController extends Controller
                  'quantity' => $item->qty,
              ]);
          }
+
+    }
+    protected function decreaseQuantity()
+    {
+        foreach (Cart::content() as $item){
+            $product = Product::find($item->model->id);
+
+            $product->update(['quantity' => $product->quantity - $item->qty]);
+        }
+    }
+
+    protected function productsNoLongerAvailable()
+    {
+        foreach (Cart::content() as $item){
+            $product = Product::find($item->model->id);
+            if($product->quantity < $item->qty)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
