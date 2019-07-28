@@ -1,1 +1,12 @@
 # L5DC-CP-Project-Pasale.com-
+
+An ecommerce site made from Laravel, a popular PHP framwork.
+
+## Shopping Cart Package
+I have used hardevine/LaravelShoppingcart to manage the shopping cart.
+
+## Admin Panel
+I have used tcg/voyager for admin backend dashboard
+
+## Payment Gateway
+For payment cartalyst/stripe-laravel was used. This helps in payment from credit and debit cards from 32 different countries.
