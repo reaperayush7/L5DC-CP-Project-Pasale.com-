@@ -100,7 +100,16 @@
 
             </div> <!-- end cart-table -->
 
-
+            @if(! session()->has('coupon'))
+            <form action="{{ route('coupon.store') }}" method="POST">
+              {{ csrf_field() }}
+							<div class="pull-Left">
+								<p class="primary-btn">Have a Coupon?</p>
+                <input class="primary-btn" type="text" name="coupon_code" id="coupon_code">
+                       			 <button type="submit" class="primary-btn">Apply</button>
+						</div>
+            </form>
+            @endif
 							<div class="pull-right">
 								<a href="{{ route('checkout.index') }}"><button class="primary-btn">Place Order</button>
 							</div>

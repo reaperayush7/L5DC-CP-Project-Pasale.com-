@@ -11,7 +11,16 @@
 					</a>
 				</div>
 			</div>
-				
+
+				<!-- Search -->
+				<div class="header-search">
+						<form action="{{ route('search') }}" method="GET">
+							<input class="input search-input" type="text" value="{{ request()->input('query') }}" name="query" id="query" placeholder="Enter your keyword">						
+							<button class="search-btn"><i class="fa fa-search"></i></button>
+						</form>
+					</div>
+					<!-- /Search -->
+
             <div class="pull-right">
 				<ul class="header-btns">
 					<!-- Account -->

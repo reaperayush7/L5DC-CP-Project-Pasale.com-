@@ -22,7 +22,13 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        return view('checkout');
+
+
+        return view('checkout')->with([
+            'discount' => $this->getNumbers()->get('discount'),
+            'newTotal' => $this->getNumbers()->get('newTotal'),
+            'newTax' => $this->getNumbers()->get('newTax'),
+        ]);
     }
 
     /**
@@ -54,7 +60,7 @@ class CheckoutController extends Controller
 
         try{
             $charge = Stripe::charges()->create([
-            'amount' => Cart::total(),
+            'amount' => $this->getNumbers()->get('newTotal'),
             'currency' => 'USD',
             'source' => $request->stripeToken,
             'description' => 'Order',
@@ -98,12 +104,13 @@ class CheckoutController extends Controller
              'billing_postalcode' => $request->postalcode,
              'billing_phone' => $request->phone,
              'billing_name_on_card' => $request->name_on_card,
-             'billing_discount' => getNumbers()->get('discount'),
-             'billing_discount_code' => getNumbers()->get('code'),
+             'billing_discount' => $this->getNumbers()->get('discount'),
+             'billing_discount_code' => session()->get('coupon')['name'] ?? null,
              'billing_subtotal' => Cart::subtotal(),
-             'billing_tax' => Cart::tax(),
-             'billing_total' => Cart::total(),
+             'billing_tax' => $this->getNumbers()->get('newTax'),
+             'billing_total' => $this->getNumbers()->get('newTotal'),
              'error' => $error,
+           
 
          ]);
 
@@ -138,6 +145,30 @@ class CheckoutController extends Controller
         }
         return false;
     }
+
+    private function getNumbers()
+{
+    $tax = config('cart.tax') / 100;
+    $discount = session()->get('coupon')['discount'] ?? 0;
+    $code = session()->get('coupon')['name'] ?? null;
+    $newSubtotal = (Cart::subtotal() - $discount);
+
+    if($newSubtotal < 0){
+        $newSubtotal=0;
+    }
+
+    $newTax = $newSubtotal * $tax;
+    $newTotal = $newSubtotal * (1 + $tax);
+
+    return collect([
+        'tax' => $tax,
+        'discount' => $discount,
+        'code' => $code,
+        'newSubtotal' => $newSubtotal,
+        'newTax' => $newTax,
+        'newTotal' => $newTotal,
+    ]);
+}
 
     /**
      * Display the specified resource.

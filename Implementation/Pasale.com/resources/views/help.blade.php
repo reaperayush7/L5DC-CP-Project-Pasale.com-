@@ -53,7 +53,7 @@
 				</div>
 
 				<div class="col-md-12">
-				<h3 >How to Register or LogIn</h3>
+				<h3 >How to Register or LogIn?</h3>
 				<h5>
 				<ul style="list-style: bullet;">
 					<li> Go to the Join form from the link present in the header.</li>
@@ -69,7 +69,7 @@
 
 
 				<div class="col-md-12">
-				<h3 >How to Checkout without logging</h3>
+				<h3 >How to Checkout without logging in?</h3>
 				<h5>
 				<ul style="list-style: bullet;">
 					<li> In the checkout form you can checkout as a guest.</li>
@@ -84,7 +84,7 @@
 				</div>
 
 				<div class="col-md-12">
-				<h3 >How to Buy Products</h3>
+				<h3 >How to Buy Products?</h3>
 				<h5>
 				<ul style="list-style: bullet;">
 					<li> Go to the shop page.</li>
@@ -102,7 +102,7 @@
 				</div>
 
 				<div class="col-md-12">
-				<h3 >What if the item stock finishes while its in cart</h3>
+				<h3 >What if the item stock finishes while its in cart?</h3>
 				<h5>
 				<ul style="list-style: bullet;">
 					<li> Certain checking functions are implemented right before checkout to see whether the quantity of the product is more than the quantity you order.</li>

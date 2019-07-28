@@ -150,16 +150,7 @@
 
 
                 </form>
-            @if(! session()->has('coupon'))
-            <form action="{{ route('coupon.store') }}" method="POST">
-              {{ csrf_field() }}
-							<div class="pull-Left">
-								<p class="primary-btn">Have a Coupon?</p>
-                <input class="primary-btn" type="text" name="coupon_code" id="coupon_code">
-                       			 <button type="submit" class="primary-btn">Apply</button>
-						</div>
-            </form>
-            @endif
+
 			</div>
             <!-- /row -->
             
@@ -207,11 +198,13 @@
                     </th>
 										<th colspan="2" class="sub-total">{{ presentPrice(session()->get('coupon')['discount']) }}</th>
                     </tr>
+                   
                     @endif
+
                      <tr>
 										<th class="empty" colspan="3"></th>
 										<th>TAX</th>
-										<th colspan="2" class="sub-total">{{config('cart.tax')}}%</th>
+										<th colspan="2" class="sub-total">{{ presentPrice($newTax) }}</th>
                       </tr>
                       <tr>
 
@@ -225,12 +218,10 @@
 									<tr>
 										<th class="empty" colspan="3"></th>
 										<th>TOTAL</th>
-										<th colspan="2" class="total">{{ presentPrice(Cart::total()) }}</th>
+										<th colspan="2" class="total">{{ presentPrice($newTotal) }}</th>
 									</tr>
 								</tfoot>
 							</table>
-
-
 		</div>
 		<!-- /container -->
 	</div>

@@ -23,10 +23,6 @@ class ProductsTableSeeder extends Seeder
         ])->categories()->attach(1);
     }
 
-    // Make Laptop 1 a Desktop as well. Just to test multiple categories
-    $product = Product::find(1);
-    $product->categories()->attach(2);
-
     // Desktops
     for ($i = 1; $i <= 9; $i++) {
         Product::create([

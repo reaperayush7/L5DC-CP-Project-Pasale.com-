@@ -27,6 +27,7 @@
 			<ul class="breadcrumb">
 				<li class="active">Home</li>
 			</ul>
+
 		</div>
 	</div>
 	<!-- /BREADCRUMB -->
@@ -44,6 +45,7 @@
 				</div>
 				<!-- section title -->
 
+				
 				<!-- Product Single -->
 				@foreach($products as $product)
 
